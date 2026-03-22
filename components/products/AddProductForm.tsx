@@ -1,11 +1,14 @@
 'use client'
 
+import { createProduct } from "@/actions/create-product-action"
 import { ProductSchema } from "@/src/schema"
+import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 
 
 
 export default function AddProductForm({children} : {children : React.ReactNode}) {
+  const router = useRouter()
 
 
 
@@ -15,6 +18,7 @@ export default function AddProductForm({children} : {children : React.ReactNode}
       name: formData.get('name'),
       price: formData.get('price'),
       categoryId: formData.get('categoryId'),
+      image: formData.get('image')
 
     }
 
@@ -24,9 +28,19 @@ export default function AddProductForm({children} : {children : React.ReactNode}
         toast.error(issue.message)
       })
 
-      
+      return
     }
-    return
+      const response = await createProduct(result.data)
+      if (response?.errors) {
+        console.log(response);
+        
+          response.errors.forEach(issue =>{
+        toast.error(issue.message)
+      })
+        return
+      }
+      toast.success('Producto creado correctamente')
+      router.push('/admin/products')
   }
   return (
 
