@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma"
-import { categories } from '../../prisma/data/categories';
 import CategoryIcon from "../ui/CategoryIcon";
 import Logo from "../ui/Logo";
 
