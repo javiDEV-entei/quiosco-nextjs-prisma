@@ -15,7 +15,9 @@ export default function ImageUpload({image} : {image: string | undefined}) {
             onSuccess={(result, {widget})=> {
                 if (result.event === 'success') {
                     widget.close()
-                   // @ts-expect-error
+                   // @ts-expect-error: Error de tipo temporal en store - pendiente refactor.
+
+
                     setImageUrl(result.info.secure_url)
                     
                 }
